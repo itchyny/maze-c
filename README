@@ -2,7 +2,7 @@
 ## Installation
 
     curl -O https://raw.github.com/itchyny/maze/master/maze-0.0.0.tar.gz
-    # wget  --no-check-certificate https://github.com/itchyny/maze/raw/master/maze-0.0.0.tar.gz
+    wget --no-check-certificate https://raw.github.com/itchyny/maze/master/maze-0.0.0.tar.gz
     tar xvf ./maze-0.0.0.tar.gz
     cd ./maze-0.0.0
     ./configure
@@ -32,5 +32,5 @@ MIT License
 ## Infomation
 File: README
 Author: itchyny
-Last Change: 2013/03/16 23:12:10.
+Last Change: 2013/03/16 23:53:51.
 
