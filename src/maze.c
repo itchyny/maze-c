@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/03/16 22:17:05.
+ * Last Change: 2013/03/17 08:42:27.
  */
 
 #include <stdio.h>
@@ -54,7 +54,6 @@
 
 extern int optind, opterr; /* unistd.h */
 extern char *optarg; /* unistd.h */
-extern int errno; /* errno.h */
 
 uint32_t HALFSIZEX, HALFSIZEY, SIZEX, SIZEY;
 
