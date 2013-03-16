@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/03/17 08:42:27.
+ * Last Change: 2013/03/17 08:43:11.
  */
 
 #include <stdio.h>
@@ -67,7 +67,6 @@ uint32_t * memoy;
 uint32_t memoindex;
 
 char aflag, nflag, eflag, cflag, Cflag, uflag, dflag;
-uint32_t sval;
 
 void terminalsize(void)
 {
