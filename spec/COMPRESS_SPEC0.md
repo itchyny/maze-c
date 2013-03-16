@@ -1,7 +1,7 @@
 <!--
 File: COMPRESS_SPEC0.md
 Author: itchyny
-Last Change: 2013/03/16 22:35:21.
+Last Change: 2013/03/17 00:04:16.
 -->
 
 # Maze Compression Specification (version 0)
@@ -116,7 +116,7 @@ It is followed by the main data of the maze.
 
 
 In the data region, the main body of the maze if stored.
-Firstly, the `wall`s are regarded as 0 and otherwise 1.
+Firstly, the `wall`s are regarded as `0` and otherwise `1`.
 Secondly, store each 8 elements into a `uint8_t` number.
 For example, the 8 elements of a maze
 
@@ -134,15 +134,15 @@ Thus the number of possible data is about
         256 ** (4 * 9 + sizex * sizey / 8)
 
 ### The 3rd layer: all numbers are in 0-61
-In this layer, all the numbers are stored in one of 0 to 61.
+In this layer, all the numbers are stored in one of `0` to `61`.
 The object is to store the data to a numbers and alphabets.
 
 
 Compression from 2nd layer to 3rd layer is done by following procedure.
 
-1. if the data starts with `0, 0, 0, 0` then store 60 and go next.
-2. if the data starts with `0, 0, 0` then store 59 and go next.
-3. if the data starts with `255, 255, 255, 255` then store 62 and go next.
+1. if the data starts with `0, 0, 0, 0` then store `60` and go next.
+2. if the data starts with `0, 0, 0` then store `59` and go next.
+3. if the data starts with `255, 255, 255, 255` then store `62` and go next.
 4. if the data starts with `x, y`, where the pair `(x, y)` is one of the following list, then store `i` and go next.
 
         i, x, y
