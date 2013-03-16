@@ -1,0 +1,72 @@
+.\" File: maze.1
+.\" Author: itchyny
+.\" Last Change: 2013/03/16 22:32:09.
+
+.\" Copyright (c)
+.ds ye 2013
+.ds mo March
+.ds da 16
+.\" author
+.ds au itchyny
+.\" command name, bold name, version, purpose
+.ds na maze
+.ds un MAZE
+.ds bn \fB\*(na\fR
+.ds ve 0.0.0
+.ds pu generate a maze
+
+.TH \*(un 1  "\*(mo \*(da, \*(ye" "version \*(ve" "USER COMMANDS"
+
+.SH NAME
+\*(bn \-\- \*(pu
+
+.SH SYNOPSIS
+\*(bn
+[ \fB\-w\fR width ]
+[ \fB\-h\fR height ]
+[ \fB\-[ane]\fR ]
+[ \fB\-[cC]\fR ]
+[ \fB\-u\fR compressed_maze ]
+[ \fB\-d\fR ]
+[ \fB\-v\fR ]
+
+.SH DESCRIPTION
+The \*(bn utility generates a maze.
+
+.SH OPTIONS
+The options are as follows:
+.TP
+\fB\-w\fR width
+Specifies the width of the maze. In default, \*(bn uses the width of the terminal.
+.TP
+\fB\-h\fR height
+Specifies the height of the maze. In default, \*(bn uses the height of the terminal.
+.TP
+\fB\-a\fR
+Print the maze using alphabets. This option disables the \fB\-n\fR flag.
+.TP
+\fB\-n\fR
+Print the maze using numbers. This option disables the \fB\-a\fR flag.
+.TP
+\fB\-e\fR
+Print the maze using ancii escape sequence as in default. This option disables both of the \fB\-a\fR and the \fB\-n\fR flags.
+.TP
+\fB\-c\fR, \fB\-C\fR
+Compress the maze. If the option \fB\-C\fR is specified, the program \*(bn prints the maze as well.
+.TP
+\fB\-u\fR compressed_maze
+Uncompress the compressed result of a maze.
+.TP
+\fB\-d\fR
+Debug mode.
+.TP
+\fB\-v\fR
+Output the version and exit instantly.
+
+.SH LICENSE
+Copyright 2013, itchyny. All rights reserved.
+This software is distributed under the MIT license.
+
+.SH AUTHOR
+This software, this manual and related files are maintained by \*(au. Report bugs or new features at \fB<https://github.com/itchyny/maze>\fR.
+

@@ -1,0 +1,36 @@
+# maze - a maze generating command
+## Installation
+
+    curl -O https://raw.github.com/itchyny/maze/master/maze-0.0.0.tar.gz
+    # wget  --no-check-certificate https://github.com/itchyny/maze/raw/master/maze-0.0.0.tar.gz
+    tar xvf ./maze-0.0.0.tar.gz
+    cd ./maze-0.0.0
+    ./configure
+    make
+    sudo make install
+
+## Example
+
+    maze
+    maze -w 10 -h 10
+    maze -c > test; maze -u `cat test`
+    maze -u `maze -c`
+
+## Manual
+
+    man maze
+
+## Author
+itchyny <https://github.com/itchyny>
+
+## Repository
+https://github.com/itchyny/maze
+
+## License
+MIT License
+
+## Infomation
+File: README
+Author: itchyny
+Last Change: 2013/03/16 23:12:10.
+
