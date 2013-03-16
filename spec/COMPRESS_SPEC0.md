@@ -1,7 +1,7 @@
 <!--
 File: COMPRESS_SPEC0.md
 Author: itchyny
-Last Change: 2013/03/17 00:52:31.
+Last Change: 2013/03/17 00:59:05.
 -->
 
 # Maze Compression Specification (version 0)
@@ -40,7 +40,8 @@ Therefore the total number of all possible mazes are
 
         5 ** (sizex * sizey).
 
-In most cases, each of `start` and `goal` appears one times and almost every element is either a `wall` or a `road`.
+In most cases, each of `start` and `goal` appears one times and almost every 
+element is either a `wall` or a `road`.
 Thus there are only about
 
         2 ** (sizex * sizey)
@@ -78,13 +79,17 @@ In this version, following frames are defined.
 where we define
 
         MAZEID = (251 | (238 << 8) | (190 << 16) | (187 << 24))
-        VERSION = ((MAJOR_VERSION << 24) | (MINOR_VERSION << 16) | (REVISION_VERSION << 8) | COMPRESS_VERSION)
+        VERSION = ((MAJOR_VERSION << 24) | (MINOR_VERSION << 16)
+               | (REVISION_VERSION << 8) | COMPRESS_VERSION)
 
-The `UNDESIDED`, `START` and `GOAL` frames are stored for the exceptional blocks in the maze.
+The `UNDESIDED`, `START` and `GOAL` frames are stored for the exceptional 
+blocks in the maze.
 
 The `ID` frame is composed by `MAZEID`, `maze` version and compression version.
-When the program `maze` try to decompress a data, it compares the compression version in the data and that of the program.
-In case the compression version in the data is larger, it warns that it may not be completely decompressed.
+When the program `maze` try to decompress a data, it compares the compression 
+version in the data and that of the program.
+In case the compression version in the data is larger, it warns that it may 
+not be completely decompressed.
 
 The `SIZE` frame is composed by `SIZEX` and `SIZEY`.
 
@@ -94,7 +99,8 @@ These numbers  are defined by the following relations.
         flagid1 = (aflag ? 2 : 0) | (nflag ? 1 : 0)
         flagid2 = 0
 
-The flags `aflag` and `nflag` are used if these options are not specified for the decompressing program.
+The flags `aflag` and `nflag` are used if these options are not specified for 
+the decompressing program.
 For example, the command
 
         maze -u `maze -c -a`
@@ -125,7 +131,8 @@ For example, the 8 elements of a maze
 is stored to a number `187`.
 
 
-There are at least 4 frames (id, size, start and goal) so the length of the data results in about
+There are at least 4 frames (id, size, start and goal) so the length of the
+data results in about
 
         4 * 9 + sizex * sizey / 8
 
@@ -140,10 +147,11 @@ The object is to store the data to a numbers and alphabets.
 
 Compression from 2nd layer to 3rd layer is done by following procedure.
 
-1. if the data starts with `0, 0, 0, 0` then store `60` and go next.
-2. if the data starts with `0, 0, 0` then store `59` and go next.
-3. if the data starts with `255, 255, 255, 255` then store `62` and go next.
-4. if the data starts with `x, y`, where the pair `(x, y)` is one of the following list, then store `i` and go next.
+1. If the data starts with `0, 0, 0, 0` then store `60` and go next.
+2. If the data starts with `0, 0, 0` then store `59` and go next.
+3. If the data starts with `255, 255, 255, 255` then store `62` and go next.
+4. If the data starts with `x, y`, where the pair `(x, y)` is one of the
+   following list, then store `i` and go next.
 
         i, x, y              i, x, y             i, x, y
         34, 0, 0             43, 187, 251        52, 238, 250
@@ -157,7 +165,8 @@ Compression from 2nd layer to 3rd layer is done by following procedure.
         42, 187, 239         51, 238, 238
 
 
-5. if the data starts with `x`, where the number `x` is one of the following list, then store `i` and go next.
+5. If the data starts with `x`, where the number `x` is one of the following
+list, then store `i` and go next.
 
         i, x          i, x          i, x          i, x
         0, 0          8, 64         16, 170       24, 234
@@ -169,8 +178,9 @@ Compression from 2nd layer to 3rd layer is done by following procedure.
         6, 20         14, 84        22, 190       30, 254
         7, 21         15, 85        23, 191       31, 255
 
-6. if the data starts with `x`, where the number `x` is less than `33`, then store `33, x` and go next.
-7. otherwise, store `32, x & 31, (x >> 5) & 31` and go next.
+6. If the data starts with `x`, where the number `x` is less than `33`, then
+store `33, x` and go next.
+7. Otherwise, store `32, x & 31, (x >> 5) & 31` and go next.
 
 
 The length of this layer depends on the maze.
@@ -220,15 +230,24 @@ Thus the length of the compression result is the same as the 3rd layer.
         sizex: 13
         sizey: 13
         len: 169
-        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251 16 90 238 213 70 235 180 5 174 173 69 107 255 0 31 255 128
+        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2
+        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127
+        251 16 90 238 213 70 235 180 5 174 173 69 107 255 0 31 255 128
         len: 76
-        43 50 21 60 32 26 2 33 13 59 33 13 59 32 6 2 33 2 60 59 33 2 33 2 59 1 59 33 3 33 10 59 33 11 60 60 60 31 32 28 7 0 32 31 3 29 4 32 26 2 26 32 21 6 32 6 2 25 32 20 5 3 18 32 13 5 11 32 11 3 31 0 33 31 31 32 0 4
+        43 50 21 60 32 26 2 33 13 59 33 13 59 32 6 2 33 2 60 59 33 2 33 2 59 1
+        59 33 3 33 10 59 33 11 60 60 60 31 32 28 7 0 32 31 3 29 4 32 26 2 26 32
+        21 6 32 6 2 25 32 20 5 3 18 32 13 5 11 32 11 3 31 0 33 31 31 32 0 4
         len: 78
-        hoLyWQ2XDxXDxW62X2yxX2X2x1xX3XAxXByyyVWS70WV3T4WQ2QWL6W62PWK53IWD5BWB3V0XVVW04
+        hoLyWQ2XDxXDxW62X2yxX2X2x1xX3XAxXByyyVWS70WV3T4WQ2QWL6W62PWK53IWD5BWB3V
+        0XVVW04
         len: 78
-        43 50 21 60 32 26 2 33 13 59 33 13 59 32 6 2 33 2 60 59 33 2 33 2 59 1 59 33 3 33 10 59 33 11 60 60 60 31 32 28 7 0 32 31 3 29 4 32 26 2 26 32 21 6 32 6 2 25 32 20 5 3 18 32 13 5 11 32 11 3 31 0 33 31 31 32 0 4
+        43 50 21 60 32 26 2 33 13 59 33 13 59 32 6 2 33 2 60 59 33 2 33 2 59 1
+        59 33 3 33 10 59 33 11 60 60 60 31 32 28 7 0 32 31 3 29 4 32 26 2 26 
+        32 21 6 32 6 2 25 32 20 5 3 18 32 13 5 11 32 11 3 31 0 33 31 31 32 0 4
         len: 78
-        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251 16 90 238 213 70 235 180 5 174 173 69 107 255 0 31 255 128
+        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 
+        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251
+        16 90 238 213 70 235 180 5 174 173 69 107 255 0 31 255 128
         len: 76
         true
 
