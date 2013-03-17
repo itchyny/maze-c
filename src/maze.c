@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/03/17 08:43:11.
+ * Last Change: 2013/03/17 11:04:58.
  */
 
 #include <stdio.h>
@@ -392,8 +392,7 @@ void decompress2(uint8_t * code, uint32_t length) {
 
 void decompress3(uint8_t * code, uint32_t length) {
   uint8_t * result;
-  uint32_t resultindex, allocatelen;
-  uint32_t i;
+  uint32_t resultindex, allocatelen, i;
   if (length > 0xffffff) {
     fprintf(stderr, PACKAGE ": too large size\n");
     exit(EXIT_FAILURE);
