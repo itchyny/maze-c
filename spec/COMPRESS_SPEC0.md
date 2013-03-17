@@ -1,7 +1,7 @@
 <!--
 File: COMPRESS_SPEC0.md
 Author: itchyny
-Last Change: 2013/03/17 16:29:36.
+Last Change: 2013/03/17 16:33:50.
 -->
 
 # Maze Compression Specification (version 0, draft)
@@ -40,7 +40,7 @@ Therefore the total number of all possible mazes are
 
         5 ** (sizex * sizey).
 
-In most cases, each of `start` and `goal` appears one times and almost every 
+In most cases, each of `start` and `goal` appears one times and almost every
 element is either a `wall` or a `road`.
 Thus there are only about
 
@@ -82,13 +82,13 @@ where we define
         VERSION = ((MAJOR_VERSION << 24) | (MINOR_VERSION << 16)
                | (REVISION_VERSION << 8) | COMPRESS_VERSION)
 
-The `UNDESIDED`, `START` and `GOAL` frames are stored for the exceptional 
+The `UNDESIDED`, `START` and `GOAL` frames are stored for the exceptional
 blocks in the maze.
 
 The `ID` frame is composed by `MAZEID`, `maze` version and compression version.
-When the program `maze` try to decompress a data, it compares the compression 
+When the program `maze` try to decompress a data, it compares the compression
 version in the data and that of the program.
-In case the compression version in the data is larger, it warns that it may 
+In case the compression version in the data is larger, it warns that it may
 not be completely decompressed.
 
 The `SIZE` frame is composed by `SIZEX` and `SIZEY`.
@@ -99,7 +99,7 @@ These numbers  are defined by the following relations.
         flagid1 = (aflag ? 2 : 0) | (nflag ? 1 : 0)
         flagid2 = 0
 
-The flags `aflag` and `nflag` are used if these options are not specified for 
+The flags `aflag` and `nflag` are used if these options are not specified for
 the decompressing program.
 For example, the command
 
@@ -178,7 +178,7 @@ list, then store `i` and go next.
         6, 20         14, 84        22, 190       30, 254
         7, 21         15, 85        23, 191       31, 255
 
-6. If the data starts with `x`, where the number `x` is one of the following 
+6. If the data starts with `x`, where the number `x` is one of the following
 list, then store `33, i` and go next.
 
         i, x        i, x          i, x           i, x
@@ -245,37 +245,37 @@ Thus the length of the compression result is the same as the 3rd layer.
         sizex: 13
         sizey: 13
         len: 169
-        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 
-        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251 
+        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2
+        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251
         1 91 186 213 22 187 180 17 170 237 81 110 255 0 31 255 128
         len: 76
-        43 50 21 60 33 14 32 13 0 59 32 13 0 59 33 11 33 0 60 59 33 0 33 0 59 
-        1 59 33 1 32 10 0 59 32 11 0 60 60 60 31 32 28 7 0 33 22 29 1 33 15 20 
+        43 50 21 60 33 14 32 13 0 59 32 13 0 59 33 11 33 0 60 59 33 0 33 0 59
+        1 59 33 1 32 10 0 59 32 11 0 60 60 60 31 32 28 7 0 33 22 29 1 33 15 20
         33 40 33 4 21 33 28 5 16 33 44 13 33 20 31 0 32 31 0 31 33 23
         len: 73
         hoLyXEWD0xWD0xXBX0yxX0X0x1xX1WA0xWB0yyyVWS70XMT1XFKXeX4LXS5GXiDXKV0WV0VXN
         len: 73
-        43 50 21 60 33 14 32 13 0 59 32 13 0 59 33 11 33 0 60 59 33 0 33 0 59 
-        1 59 33 1 32 10 0 59 32 11 0 60 60 60 31 32 28 7 0 33 22 29 1 33 15 20 
+        43 50 21 60 33 14 32 13 0 59 32 13 0 59 33 11 33 0 60 59 33 0 33 0 59
+        1 59 33 1 32 10 0 59 32 11 0 60 60 60 31 32 28 7 0 33 22 29 1 33 15 20
         33 40 33 4 21 33 28 5 16 33 44 13 33 20 31 0 32 31 0 31 33 23
         len: 73
-        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 
-        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251 
+        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2
+        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251
         1 91 186 213 22 187 180 17 170 237 81 110 255 0 31 255 128
         len: 76
         true
 
 The 2nd layer
 
-        187 251 238 190 187 0 0 0 0      # ID frame (0.0.0 0)             
-        90 13 0 0 0 13 0 0 0             # SIZE frame (sizex 13, sizey 13)      
-        70 2 0 0 0 0 0 0 0               # FLAG frame (aflag)    
-        2 2 0 0 0 1 0 0 0                # START frame   
-        3 10 0 0 0 11 0 0 0              # GOAL frame     
-        0 0 0 0 0 0 0 0 0                # END frame   
-        255 252 0 127 251 1 91           # Data region        
-        186 213 22 187 180 17 170                   
-        237 81 110 255 0 31 255 128                  
+        187 251 238 190 187 0 0 0 0      # ID frame (0.0.0 0)
+        90 13 0 0 0 13 0 0 0             # SIZE frame (sizex 13, sizey 13)
+        70 2 0 0 0 0 0 0 0               # FLAG frame (aflag)
+        2 2 0 0 0 1 0 0 0                # START frame
+        3 10 0 0 0 11 0 0 0              # GOAL frame
+        0 0 0 0 0 0 0 0 0                # END frame
+        255 252 0 127 251 1 91           # Data region
+        186 213 22 187 180 17 170
+        237 81 110 255 0 31 255 128
 
 The 3rd layer
 
@@ -284,7 +284,7 @@ The 3rd layer
         33 11 [70] 33 0 [2] 60 [0 0 0 0] 59 [0 0 0]
         33 0 [2] 33 0 [2] 59 [0 0 0] 1 [1] 59 [0 0 0]
         33 1 [3] 32 10 0 [10] 59 [0 0 0] 32 11 0 [11] 60 [0 0 0 0]
-        60 [0 0 0 0] 60 [0 0 0 0]  
+        60 [0 0 0 0] 60 [0 0 0 0]
         31 [255] 32 28 7 [252] 0 [0] 33 22 [127] 29 [251] 1 [1] 33 15 [91]
         20 [186] 33 40 [213] 33 4 [22] 21 [187] 33 28 [180] 5 [17] 16 [170]
         33 44 [237] 13 [81] 33 20 [110] 31 [255] 0 [0] 32 31 0 [31] 31 [255] 33 23 [128]
