@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/03/17 11:04:58.
+ * Last Change: 2013/03/17 16:02:33.
  */
 
 #include <stdio.h>
@@ -332,6 +332,14 @@ uint8_t decompress2arr2[decompress2arr2len] =
 #define zero3 (32 + 2 + decompress2arr2len / 2)
 #define zero4 (zero3 + 1)
 #define ff4 (zero4 + 1)
+uint8_t decompress2arr3[62] =
+  { 2, 3, 6, 7, 22, 26, 27, 33,
+    35, 36, 39, 70, 86, 88, 90, 91,
+    93, 95, 106, 107, 110, 111, 127, 128,
+    172, 173, 176, 177, 180, 181, 192, 193,
+    196, 197, 200, 201, 203, 208, 209, 212,
+    213, 232, 233, 236, 237, 240 };
+uint8_t compress2arr3[256];
 void decompress2(uint8_t * code, uint32_t length) {
   uint8_t * result;
   uint8_t c;
@@ -345,9 +353,9 @@ void decompress2(uint8_t * code, uint32_t length) {
     } else if (code[i] == zero4 || code[i] == ff4) {
       counter += 3;
     } else if (code[i] == 32) {
-      counter -= 2;
+      counter -= 2; i += 2;
     } else if (code[i] == 33) {
-      --counter;
+      --counter; i++;
     }
   }
   result = (uint8_t *) calloc(allocatelen = length + counter + 9,
@@ -360,7 +368,7 @@ void decompress2(uint8_t * code, uint32_t length) {
       result[resultindex++] = code[i + 1] | (code[i + 2] << 5);
       i += 2;
     } else if (code[i] == 33 && i + 1 < length) {
-      result[resultindex++] = code[i + 1];
+      result[resultindex++] = decompress2arr3[code[i + 1]];
       ++i;
     } else if (34 <= code[i] && code[i] < 34 + decompress2arr2len / 2) {
       result[resultindex++] = decompress2arr2[(code[i] - 34) * 2];
@@ -460,6 +468,9 @@ void compress2(uint8_t * code, uint32_t length) {
   for (i = 0; i < 32; ++i) {
     compress2arr[decompress2arr[i]] = i;
   }
+  for (i = 0; i < 62; ++i) {
+    compress2arr3[decompress2arr3[i]] = i + 1;
+  }
   for (i = 0; i < length; ++i) {
     if (compress2arr[code[i]] == 0 && code[i] != 0) ++counter;
   }
@@ -503,9 +514,9 @@ void compress2(uint8_t * code, uint32_t length) {
     }
     if (compress2arr[code[i]] || code[i] == 0) {
       result[resultindex++] = compress2arr[code[i]];
-    } else if (code[i] < 33) {
+    } else if (compress2arr3[code[i]]) {
       result[resultindex++] = 33;
-      result[resultindex++] = code[i];
+      result[resultindex++] = compress2arr3[code[i]] - 1;
     } else {
       result[resultindex++] = 32;
       result[resultindex++] = code[i] & 31;

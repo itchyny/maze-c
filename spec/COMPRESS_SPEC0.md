@@ -1,10 +1,10 @@
 <!--
 File: COMPRESS_SPEC0.md
 Author: itchyny
-Last Change: 2013/03/17 00:59:05.
+Last Change: 2013/03/17 16:14:15.
 -->
 
-# Maze Compression Specification (version 0)
+# Maze Compression Specification (version 0, draft)
 This document defines how to compress/decompress a maze.
 The program `cam` works as this document states.
 The version of this compression spec is 0.
@@ -178,8 +178,23 @@ list, then store `i` and go next.
         6, 20         14, 84        22, 190       30, 254
         7, 21         15, 85        23, 191       31, 255
 
-6. If the data starts with `x`, where the number `x` is less than `33`, then
-store `33, x` and go next.
+6. If the data starts with `x`, where the number `x` is one of the following 
+list, then store `33, i` and go next.
+
+        i, x        i, x          i, x           i, x
+        0, 2        12, 86        24, 172        36, 203
+        1, 3        13, 88        25, 173        37, 208
+        2, 6        14, 90        26, 176        38, 209
+        3, 7        15, 91        27, 177        39, 212
+        4, 22       16, 93        28, 180        40, 213
+        5, 26       17, 95        29, 181        41, 232
+        6, 27       18, 106       30, 192        42, 233
+        7, 33       19, 107       31, 193        43, 236
+        8, 35       20, 110       32, 196        44, 237
+        9, 36       21, 111       33, 197        45, 240
+        10, 39      22, 127       34, 200
+        11, 70      23, 128       35, 201
+
 7. Otherwise, store `32, x & 31, (x >> 5) & 31` and go next.
 
 
@@ -217,82 +232,66 @@ Thus the length of the compression result is the same as the 3rd layer.
 
           XXXXXXXXXXXXXXXXXXXXXX
           S                   XX
-          XXXXXX  XXXXXXXXXX  XX
+          XXXXXXXXXXXXXX  XX  XX
+          XX      XX      XX  XX
+          XX  XX  XX  XXXXXX  XX
           XX  XX      XX      XX
-          XX  XX  XX  XX  XXXXXX
-          XX      XX  XX      XX
-          XX  XXXXXXXXXXXXXX  XX
-          XX  XX      XX  XX  XX
-          XX  XX  XXXXXX  XX  XX
-          XX  XX               G
+          XX  XXXXXXXXXX  XXXXXX
+          XX  XX  XX  XX      XX
+          XX  XX  XX  XXXXXX  XX
+          XX      XX           G
           XXXXXXXXXXXXXXXXXXXXXX
 
         sizex: 13
         sizey: 13
         len: 169
-        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2
-        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127
-        251 16 90 238 213 70 235 180 5 174 173 69 107 255 0 31 255 128
+        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251 1 91 186 213 22 187 180 17 170 237 81 110 255 0 31 255 128
         len: 76
-        43 50 21 60 32 26 2 33 13 59 33 13 59 32 6 2 33 2 60 59 33 2 33 2 59 1
-        59 33 3 33 10 59 33 11 60 60 60 31 32 28 7 0 32 31 3 29 4 32 26 2 26 32
-        21 6 32 6 2 25 32 20 5 3 18 32 13 5 11 32 11 3 31 0 33 31 31 32 0 4
-        len: 78
-        hoLyWQ2XDxXDxW62X2yxX2X2x1xX3XAxXByyyVWS70WV3T4WQ2QWL6W62PWK53IWD5BWB3V
-        0XVVW04
-        len: 78
-        43 50 21 60 32 26 2 33 13 59 33 13 59 32 6 2 33 2 60 59 33 2 33 2 59 1
-        59 33 3 33 10 59 33 11 60 60 60 31 32 28 7 0 32 31 3 29 4 32 26 2 26 
-        32 21 6 32 6 2 25 32 20 5 3 18 32 13 5 11 32 11 3 31 0 33 31 31 32 0 4
-        len: 78
-        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 
-        2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251
-        16 90 238 213 70 235 180 5 174 173 69 107 255 0 31 255 128
+        43 50 21 60 33 14 32 13 0 59 32 13 0 59 33 11 33 0 60 59 33 0 33 0 59 1 59 33 1 32 10 0 59 32 11 0 60 60 60 31 32 28 7 0 33 22 29 1 33 15 20 33 40 33 4 21 33 28 5 16 33 44 13 33 20 31 0 32 31 0 31 33 23
+        len: 73
+        hoLyXEWD0xWD0xXBX0yxX0X0x1xX1WA0xWB0yyyVWS70XMT1XFKXeX4LXS5GXiDXKV0WV0VXN
+        len: 73
+        43 50 21 60 33 14 32 13 0 59 32 13 0 59 33 11 33 0 60 59 33 0 33 0 59 1 59 33 1 32 10 0 59 32 11 0 60 60 60 31 32 28 7 0 33 22 29 1 33 15 20 33 40 33 4 21 33 28 5 16 33 44 13 33 20 31 0 32 31 0 31 33 23
+        len: 73
+        187 251 238 190 187 0 0 0 0 90 13 0 0 0 13 0 0 0 70 2 0 0 0 0 0 0 0 2 2 0 0 0 1 0 0 0 3 10 0 0 0 11 0 0 0 0 0 0 0 0 0 0 0 0 255 252 0 127 251 1 91 186 213 22 187 180 17 170 237 81 110 255 0 31 255 128
         len: 76
         true
 
-
 The 2nd layer
 
-        187 251 238 190 187 0 0 0 0     # ID frame (0.0.0 0)
-        90 13 0 0 0 13 0 0 0            # SIZE frame (sizex 13, sizey 13)
-        70 2 0 0 0 0 0 0 0              # FLAG frame (aflag)
-        2 2 0 0 0 1 0 0 0               # START frame
-        3 10 0 0 0 11 0 0 0             # GOAL frame
-        0 0 0 0 0 0 0 0 0               # END frame
-        255 252 0 127 251               # Data region
-        16 90 238 213 70
-        235 180 5 174 173
-        69 107 255 0 31
-        255 128
+        187 251 238 190 187 0 0 0 0      # ID frame (0.0.0 0)             
+        90 13 0 0 0 13 0 0 0             # SIZE frame (sizex 13, sizey 13)      
+        70 2 0 0 0 0 0 0 0               # FLAG frame (aflag)    
+        2 2 0 0 0 1 0 0 0                # START frame   
+        3 10 0 0 0 11 0 0 0              # GOAL frame     
+        0 0 0 0 0 0 0 0 0                # END frame   
+        255 252 0 127 251 1 91           # Data region        
+        186 213 22 187 180 17 170                   
+        237 81 110 255 0 31 255 128                  
 
 The 3rd layer
 
         43 [187 251] 50 [238 190] 21 [187] 60 [0 0 0 0]
-        32 26 2 [90] 33 13 [13] 59 [0 0 0] 33 13 [13] 59 [0 0 0]
-        32 6 2 [70] 33 2 [2] 60 [0 0 0 0] 59 [0 0 0]
-        33 2 [2] 33 2 [2] 59 [0 0 0] 1 [1] 59 [0 0 0]
-        33 3 [3] 33 10 [10] 59 [0 0 0] 33 11 [11] 60 [0 0 0 0]
-        60 [0 0 0 0] 60 [0 0 0 0]
-        31 [255] 32 28 7 [252] 0 [0] 32 31 3 [127] 29 [251]
-        4 [16] 32 26 2 [90] 26 [238] 32 21 6 [213] 32 6 2 [70]
-        25 [235] 32 20 5 [180] 3 [5] 18 [174] 32 13 5 [173]
-        11 [69] 32 11 3 [107] 31 [255] 0 [0] 33 31 [31]
-        31 [255] 32 0 4 [128]
+        33 14 [90] 32 13 0 [13] 59 [0 0 0] 32 13 0 [13] 59 [0 0 0]
+        33 11 [70] 33 0 [2] 60 [0 0 0 0] 59 [0 0 0]
+        33 0 [2] 33 0 [2] 59 [0 0 0] 1 [1] 59 [0 0 0]
+        33 1 [3] 32 10 0 [10] 59 [0 0 0] 32 11 0 [11] 60 [0 0 0 0]
+        60 [0 0 0 0] 60 [0 0 0 0]  
+        31 [255] 32 28 7 [252] 0 [0] 33 22 [127] 29 [251] 1 [1] 33 15 [91]
+        20 [186] 33 40 [213] 33 4 [22] 21 [187] 33 28 [180] 5 [17] 16 [170]
+        33 44 [237] 13 [81] 33 20 [110] 31 [255] 0 [0] 32 31 0 [31] 31 [255] 33 23 [128]
 
 The 4th layer
 
         hoLy
-        WQ2XDxXDx
-        W62X2yx
-        X2X2x1x
-        X3XAxXBy
+        XEWD0x
+        WD0xXBX0yx
+        X0X0x1x
+        X1WA0xWB0y
         yy
-        VWS70WV3T
-        4WQ2QWL6W62
-        PWK53IWD5
-        BWB3V0XV
-        VW04
+        VWS70XMT1XF
+        KXeX4LXS5G
+        XiDXKV0WV0VXN
 
 ## Author
 itchyny <https://github.com/itchyny>
