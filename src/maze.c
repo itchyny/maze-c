@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/03/17 16:02:33.
+ * Last Change: 2013/03/17 16:23:51.
  */
 
 #include <stdio.h>
@@ -355,7 +355,7 @@ void decompress2(uint8_t * code, uint32_t length) {
     } else if (code[i] == 32) {
       counter -= 2; i += 2;
     } else if (code[i] == 33) {
-      --counter; i++;
+      --counter; ++i;
     }
   }
   result = (uint8_t *) calloc(allocatelen = length + counter + 9,
