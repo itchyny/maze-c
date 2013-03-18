@@ -1,12 +1,12 @@
 <!--
 File: COMPRESS_SPEC0.md
 Author: itchyny
-Last Change: 2013/03/17 16:33:50.
+Last Change: 2013/03/18 21:37:30.
 -->
 
 # Maze Compression Specification (version 0, draft)
 This document defines how to compress/decompress a maze.
-The program `cam` works as this document states.
+The program `maze` works as this document states.
 The version of this compression spec is 0.
 This document does not state the detail of other versions.
 
