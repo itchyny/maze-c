@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/03/17 16:23:51.
+ * Last Change: 2013/06/05 10:18:08.
  */
 
 #include <stdio.h>
@@ -68,6 +68,30 @@ uint32_t memoindex;
 
 char aflag, nflag, eflag, cflag, Cflag, uflag, dflag;
 
+void terminalsize(void);
+void desideone(uint32_t, uint32_t, char r);
+void desideroad(uint32_t, uint32_t);
+void desidewall(uint32_t, uint32_t);
+void printelemaa(char);
+void printeleman(char);
+void printelemone(char);
+void printelem(uint32_t, uint32_t);
+void printmaze(void);
+void decompress1(uint8_t*, uint32_t);
+void decompress2(uint8_t*, uint32_t);
+void decompress3(uint8_t*, uint32_t);
+void compress3(uint8_t*, uint32_t);
+void compress2(uint8_t*, uint32_t);
+void compress1(void);
+char canmove(uint32_t, uint32_t);
+void mazebranch(uint32_t, uint32_t);
+void usage(void);
+void version(void);
+void initialize(int, char*[]);
+void allocate(void);
+void deallocate(void);
+void mazeroutine(void);
+
 void terminalsize(void)
 {
 #ifdef HAVE_IOCTL
@@ -91,7 +115,7 @@ void terminalsize(void)
 }
 
 void desideone(uint32_t i, uint32_t j, char r) {
-  if (0 <= i && i < SIZEX && 0 <= j && j < SIZEY && maze[i][j] < road) {
+  if (i < SIZEX && j < SIZEY && maze[i][j] < road) {
     if (r) {
       maze[i][j] = road;
       if (!desided[i][j]) {
@@ -197,7 +221,7 @@ void printmaze(void) {
     (code[codeindex + 2] << 16) | (code[codeindex + 3] << 24);\
   codeindex += 4;
 void decompress1(uint8_t * code, uint32_t length) {
-  uint32_t i, j, k, len, resutore1, restore2,
+  uint32_t i, j, k,
            mazeidentifier, version,
            major, minor, revision, compress_ver,
            sizex, sizey, size, codeindex,
@@ -226,7 +250,7 @@ void decompress1(uint8_t * code, uint32_t length) {
     }
     if (identifier == 0) break;
   }
-  if (mazeidentifier != MAZEID) {
+  if (mazeidentifier - MAZEID != 0) {
     fprintf(stderr, PACKAGE
         ": invalid id: %08x (varid id: %08x)\n", mazeidentifier, MAZEID);
     exit(EXIT_FAILURE);
@@ -342,8 +366,7 @@ uint8_t decompress2arr3[62] =
 uint8_t compress2arr3[256];
 void decompress2(uint8_t * code, uint32_t length) {
   uint8_t * result;
-  uint8_t c;
-  uint32_t resultindex, allocatelen, counter, i, j;
+  uint32_t resultindex, allocatelen, counter, i;
   counter = resultindex = 0;
   for (i = 0; i < length; ++i) {
     if (34 <= code[i] && code[i] < 34 + decompress2arr2len / 2) {
@@ -679,7 +702,7 @@ void version(void)
 
 void initialize(int argc, char *argv[]) {
   char * endptr;
-  uint32_t ch;
+  int ch;
   undesided = 0; wall = 1; road = 2; start = 3; goal = 4;
   while ((ch = getopt(argc, argv, ":w:h:anecCu:dv")) != -1) {
     switch (ch) {
@@ -713,7 +736,7 @@ void initialize(int argc, char *argv[]) {
 }
 
 void allocate(void) {
-  uint32_t i, j;
+  uint32_t i;
   maze = (uint8_t **) calloc(SIZEX, sizeof(uint8_t *));
   CHECK_ALLOCATE(maze);
   _maze = (uint8_t *) calloc(SIZEX * SIZEY, sizeof(uint8_t));
