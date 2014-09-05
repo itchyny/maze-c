@@ -1,10 +1,9 @@
 # maze - a maze generating command
 ## Installation
 
-    curl -O https://raw.githubusercontent.com/itchyny/maze/master/maze-0.0.0.tar.gz
-    # wget --no-check-certificate https://raw.githubusercontent.com/itchyny/maze/master/maze-0.0.0.tar.gz
-    tar xvf ./maze-0.0.0.tar.gz
-    cd ./maze-0.0.0
+    git clone https://github.com/itchyny/maze
+    cd ./maze
+    autoreconf -i
     ./configure
     make
     sudo make install
@@ -27,10 +26,10 @@ itchyny <https://github.com/itchyny>
 https://github.com/itchyny/maze
 
 ## License
-MIT License
+This software is released under the MIT License, see LICENSE.
 
 ## Infomation
-File: README
+File: README.md
 Author: itchyny
-Last Change: 2014/05/19 15:38:36.
+Last Change: 2014/08/31 10:18:14.
 
