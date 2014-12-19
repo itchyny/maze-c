@@ -27,9 +27,3 @@ https://github.com/itchyny/maze
 
 ## License
 This software is released under the MIT License, see LICENSE.
-
-## Infomation
-File: README.md
-Author: itchyny
-Last Change: 2014/08/31 10:18:14.
-
