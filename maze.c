@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2015/01/30 00:37:44.
+ * Last Change: 2015/01/30 00:38:48.
  */
 
 #include <stdio.h>
@@ -429,7 +429,7 @@ void decompress3(uint8_t * code, uint32_t length) {
     exit(EXIT_FAILURE);
   }
   resultindex = 0;
-  result = (uint8_t *) calloc(allocatelen = length, sizeof(uint8_t));
+  result = (uint8_t *) calloc((allocatelen = length) + 1, sizeof(uint8_t));
   CHECK_ALLOCATE(result);
   for (i = 0; i < length; ++i) {
     if ('0' <= code[i] && code[i] <= '9') {
