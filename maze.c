@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2015/01/30 00:36:33.
+ * Last Change: 2015/01/30 00:37:44.
  */
 
 #include <stdio.h>
@@ -439,7 +439,7 @@ void decompress3(uint8_t * code, uint32_t length) {
     } else if ('a' <= code[i] && code[i] <= 'z') {
       result[resultindex++] = code[i] - 'a' + 10 + 26;
     } else if (code[i] != '\n') {
-      fprintf(stderr, PACKAGE ": invarid character: '%c'\n", code[i]);
+      fprintf(stderr, PACKAGE ": invalid character: '%c'\n", code[i]);
       free(result);
       exit(EXIT_FAILURE);
     }
