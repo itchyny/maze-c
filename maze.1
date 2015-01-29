@@ -1,9 +1,9 @@
 .\" File: maze.1
 .\" Author: itchyny
-.\" Last Change: 2013/03/17 01:58:31.
+.\" Last Change: 2015/01/17 12:33:57.
 
 .\" Copyright (c)
-.ds ye 2013
+.ds ye 2013, 2014, 2015
 .ds mo March
 .ds da 16
 .\" author
@@ -37,10 +37,10 @@ The \*(bn utility generates a maze.
 The options are as follow:
 .TP
 \fB\-w\fR width
-Specifies the width of the maze. In default, \*(bn uses the width of the terminal.
+Specifies the width of the maze. By default, \*(bn uses the width of the terminal.
 .TP
 \fB\-h\fR height
-Specifies the height of the maze. In default, \*(bn uses the height of the terminal.
+Specifies the height of the maze. By default, \*(bn uses the height of the terminal.
 .TP
 \fB\-a\fR
 Print the maze using alphabets. This option disables the \fB\-n\fR flag.
@@ -49,7 +49,7 @@ Print the maze using alphabets. This option disables the \fB\-n\fR flag.
 Print the maze using numbers. This option disables the \fB\-a\fR flag.
 .TP
 \fB\-e\fR
-Print the maze using ancii escape sequence as in default. This option disables both of the \fB\-a\fR and the \fB\-n\fR flags.
+Print the maze using ANSI escape sequence. This flag is enabled by default. This option disables both of the \fB\-a\fR and the \fB\-n\fR flags.
 .TP
 \fB\-c\fR, \fB\-C\fR
 Compress the maze. If the option \fB\-C\fR is specified, the program \*(bn prints the maze as well.
