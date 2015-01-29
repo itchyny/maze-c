@@ -1,7 +1,7 @@
 /*
  * file: maze.c
  * author: itchyny
- * Last Change: 2013/06/05 10:18:08.
+ * Last Change: 2015/01/30 00:36:33.
  */
 
 #include <stdio.h>
@@ -462,7 +462,7 @@ void compress3(uint8_t * code, uint32_t length) {
   uint8_t * result;
   uint32_t resultindex, allocatelen, i;
   resultindex = 0;
-  result = (uint8_t *) calloc(allocatelen = length, sizeof(uint8_t));
+  result = (uint8_t *) calloc((allocatelen = length) + 1, sizeof(uint8_t));
   CHECK_ALLOCATE(result);
   for (i = 0; i < length; ++i) {
     result[resultindex++]
